@@ -21,8 +21,8 @@ jobs:
           nix run nixpkgs#nix-info -- -m
       - name: DevShell
         run: |
-          nix build -L --no-link github:purs-nix/purescript-docs-search#devShell.x86_64-linux
+          nix build -L --no-link github:purs-nix/purescript-docs-search/8f3ea8cd24b7cf605ce80e040622f273801fc646#devShell.x86_64-linux
       - name: Build
         id: build
         run: |
-          nix build -L --no-link github:purs-nix/purescript-docs-search
+          nix build -L --no-link github:purs-nix/purescript-docs-search/8f3ea8cd24b7cf605ce80e040622f273801fc646
