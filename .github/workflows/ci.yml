@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v2
       - uses: cachix/install-nix-action@v17
@@ -19,6 +19,9 @@ jobs:
       - name: System Info
         run: |
           nix run nixpkgs#nix-info -- -m
+      - name: DevShell
+        run: |
+          nix build -L --no-link github:purs-nix/purescript-docs-search#devShell.x86_64-linux
       - name: Build
         id: build
         run: |
