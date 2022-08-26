@@ -1,0 +1,25 @@
+name: "CI"
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: System Info
+        run: |
+          nix run nixpkgs#nix-info -- -m
+      - name: Build
+        id: build
+        run: |
+          nix build -L --no-link github:purs-nix/purescript-docs-search
